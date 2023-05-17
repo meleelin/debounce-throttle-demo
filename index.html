@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debounce & Throttle</title>
+    <style></style>
+  </head>
+  <body>
+    <input type="text" id="inputText" />
+    <h3 id="defaultText">Default: <span></span></h3>
+    <h3 id="debounceText">Debounce: <span></span></h3>
+    <h3 id="throttleText">Throttle: <span></span></h3>
+
+    <script type="module">
+      import { debounce } from "./debounce.js";
+      import { throttle } from "./throttle.js";
+
+      // debounceText
+      const updateDebounceText = debounce((text) => {
+        debounceText.textContent = text;
+      }, 800);
+
+      // throttleText
+      const updateThrottleText = throttle((text) => {
+        throttleText.textContent = text;
+      }, 300);
+
+      // input
+      const inputText = document.querySelector("#inputText");
+
+      // content
+      const defaultText = document.querySelector("#defaultText span");
+      const debounceText = document.querySelector("#debounceText span");
+      const throttleText = document.querySelector("#throttleText span");
+
+      inputText.addEventListener("input", (e) => {
+        const { value } = e.target;
+        defaultText.textContent = value;
+        updateDebounceText(value);
+        updateThrottleText(value);
+      });
+    </script>
+  </body>
+</html>
